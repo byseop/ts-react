@@ -1,57 +1,12 @@
-import React, { useReducer } from 'react';
-
-type Color = 'red' | 'orange' | 'yellow';
-
-type State = {
-    count: number;
-    text: string;
-    color: Color;
-    isGood: boolean;
-};
-
-type Action = 
-    | { type: 'SET_COUNT'; count: number; }
-    | { type: 'SET_TEXT'; text: string; }
-    | { type: 'SET_COLOR'; color: Color; }
-    | { type: 'TOGGLE_GOOD'; }
-
-function reducer(state: State, action: Action): State {
-    switch(action.type) {
-        case 'SET_COUNT':
-            return {
-                ...state,
-                count: action.count // count가 자동완성되며, number 타입인걸 알 수 있다
-            }
-        case 'SET_TEXT':
-            return {
-                ...state,
-                text: action.text // text가 자동완성되며, string 타입인걸 알 수 있다
-            }
-        case 'SET_COLOR':
-            return {
-                ...state,
-                color: action.color // color가 자동완성되며, Color 타입인걸 알 수 있다
-            }
-        case 'TOGGLE_GOOD':
-            return {
-                ...state,
-                isGood: !state.isGood
-            }
-        default:
-            throw new Error('Unhandled action');
-    }
-}
+import React from 'react';
+import { useSampleState, useSampleDispatch } from './SampleContext';
 
 function ReducerSample() {
-    const [state, dispatch] = useReducer(reducer, {
-        count: 0,
-        text: 'hello',
-        color: 'red',
-        isGood: true
-    });
+    const state = useSampleState();
+    const dispatch = useSampleDispatch();
 
     const setCount = () => dispatch({ type: 'SET_COUNT', count: 5 });
-    const setText = () => dispatch({ type: 'SET_TEXT', text: 'bye' });
+    const setText = () => dispatch({ type: 'SET_TEXT', text: 'bye'});
     const setColor = () => dispatch({ type: 'SET_COLOR', color: 'orange'});
     const toggleGood = () => dispatch({ type: 'TOGGLE_GOOD' });
 
